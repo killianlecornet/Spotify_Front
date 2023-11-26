@@ -6,7 +6,7 @@ function MusicList() {
 
     useEffect(() => {
         // Remplacer par l'URL de votre API
-        fetch('http://localhost:3000/api/musics')
+        fetch('http://localhost:3001/api/musics')
             .then(response => response.json())
             .then(data => setMusics(data))
             .catch(error => console.error('Erreur:', error));
