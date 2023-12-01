@@ -1,54 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import MusicPlayer from './MusicPlayer'; // Assurez-vous que ce composant existe et fonctionne correctement
+import MusicPlayer from './MusicPlayer'; // Assurez-vous que ce composant existe
 
 function MusicList() {
     const [musics, setMusics] = useState([]);
-    const [selectedArtist, setSelectedArtist] = useState(null);
-    const [currentMusicUrl, setCurrentMusicUrl] = useState('');
+    const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        // Remplacer par l'URL de votre API
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        setFavorites(savedFavorites);
+
         fetch('http://localhost:3001/api/musics')
             .then(response => response.json())
             .then(data => setMusics(data))
             .catch(error => console.error('Erreur:', error));
     }, []);
 
-    const groupByArtist = (musicsArray) => {
-        return musicsArray.reduce((acc, music) => {
-            acc[music.artist] = [...(acc[music.artist] || []), music];
-            return acc;
-        }, {});
-    };
+    const toggleFavorite = (musicId) => {
+        const updatedFavorites = favorites.includes(musicId)
+            ? favorites.filter(id => id !== musicId)
+            : [...favorites, musicId];
 
-    const musicsByArtist = groupByArtist(musics);
-
-    const handleMusicClick = (url) => {
-        setCurrentMusicUrl(url);
+        setFavorites(updatedFavorites);
+        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
     };
 
     return (
         <div>
-            <h1>Liste des Artistes</h1>
-            {selectedArtist === null ? (
-                Object.keys(musicsByArtist).map(artist => (
-                    <h3 key={artist} onClick={() => setSelectedArtist(artist)}>
-                        {artist}
-                    </h3>
-                ))
-            ) : (
+            <h1>Liste des Musiques</h1>
+            {musics.map(music => (
+                <MusicItem 
+                    key={music._id} 
+                    music={music} 
+                    isFavorite={favorites.includes(music._id)}
+                    toggleFavorite={toggleFavorite} 
+                />
+            ))}
+        </div>
+    );
+}
+
+function MusicItem({ music, isFavorite, toggleFavorite }) {
+    const [showDetails, setShowDetails] = useState(false);
+
+    const handleFavoriteClick = (event) => {
+        event.stopPropagation();
+        toggleFavorite(music._id);
+    };
+
+    return (
+        <div>
+            <h4 onClick={() => setShowDetails(!showDetails)}>
+                {music.title}
+                <span onClick={handleFavoriteClick} style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                    {isFavorite ? '❤️' : '🤍'}
+                </span>
+            </h4>
+            {showDetails && (
                 <div>
-                    <button onClick={() => setSelectedArtist(null)}>Retour</button>
-                    <h2>Musiques de {selectedArtist}</h2>
-                    {musicsByArtist[selectedArtist].map(music => (
-                        <div key={music._id}>
-                            <h4 onClick={() => handleMusicClick(music.url)}>{music.title}</h4>
-                        </div>
-                    ))}
+                    <p>{music.artist}</p>
+                    <MusicPlayer url={music.url} />
                 </div>
             )}
-
-            {currentMusicUrl && <MusicPlayer url={currentMusicUrl} />}
         </div>
     );
 }
