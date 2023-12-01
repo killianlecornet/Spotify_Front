@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import MusicPlayer from './MusicPlayer'; // Assurez-vous que ce composant existe
+import MusicPlayer from './MusicPlayer';
+import MusicControlBar from './MusicControlBar'; // Assurez-vous d'avoir créé ce composant
 
 function MusicList() {
     const [musics, setMusics] = useState([]);
     const [favorites, setFavorites] = useState([]);
+    const [currentMusicIndex, setCurrentMusicIndex] = useState(null);
 
     useEffect(() => {
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -24,43 +26,36 @@ function MusicList() {
         localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
     };
 
+    const playNextMusic = () => {
+        setCurrentMusicIndex(index => (index + 1) % musics.length);
+    };
+    
+    const playPreviousMusic = () => {
+        setCurrentMusicIndex(index => (index - 1 + musics.length) % musics.length);
+    };
+    
+
+    const currentMusic = musics[currentMusicIndex];
+
     return (
         <div>
             <h1>Liste des Musiques</h1>
-            {musics.map(music => (
-                <MusicItem 
-                    key={music._id} 
-                    music={music} 
-                    isFavorite={favorites.includes(music._id)}
-                    toggleFavorite={toggleFavorite} 
-                />
-            ))}
-        </div>
-    );
-}
-
-function MusicItem({ music, isFavorite, toggleFavorite }) {
-    const [showDetails, setShowDetails] = useState(false);
-
-    const handleFavoriteClick = (event) => {
-        event.stopPropagation();
-        toggleFavorite(music._id);
-    };
-
-    return (
-        <div>
-            <h4 onClick={() => setShowDetails(!showDetails)}>
-                {music.title}
-                <span onClick={handleFavoriteClick} style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                    {isFavorite ? '❤️' : '🤍'}
-                </span>
-            </h4>
-            {showDetails && (
-                <div>
-                    <p>{music.artist}</p>
-                    <MusicPlayer url={music.url} />
+            {musics.map((music, index) => (
+                <div key={music._id} onClick={() => setCurrentMusicIndex(index)}>
+                    <h4>{music.title}</h4>
+                    <span onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(music._id);
+                    }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                        {favorites.includes(music._id) ? '❤️' : '🤍'}
+                    </span>
                 </div>
-            )}
+            ))}
+            <MusicControlBar
+                currentMusic={currentMusic}
+                playNext={playNextMusic}
+                playPrevious={playPreviousMusic}
+            />
         </div>
     );
 }
