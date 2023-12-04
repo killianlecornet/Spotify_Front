@@ -1,18 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBackward, faForward, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
 const ControlBar = styled.div`
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #282828;
+    background-color: #121212;
     color: white;
     padding: 10px;
+`;
+
+const ContainerFlex = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Container = styled.div`
+    display: flex;
 `;
 
 const ProgressBar = styled.input.attrs({
@@ -36,6 +49,7 @@ const VolumeControl = styled.input.attrs({
 const MusicInfo = styled.div`
     flex-grow: 1;
     text-align: center;
+    width: 20%;
 `;
 
 const ControlButton = styled.button`
@@ -87,30 +101,42 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
 
     return (
         <ControlBar>
-            <ControlButton onClick={playPrevious}>⏮️</ControlButton>
-            <ControlButton onClick={togglePlayPause}>
-                {isPlaying ? '⏸️' : '▶️'}
-            </ControlButton>
-            <audio 
-                ref={audioRef} 
-                src={currentMusic?.url} 
-                autoPlay
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-                onTimeUpdate={() => {
-                    const audio = audioRef.current;
-                    if (audio) {
-                        const newProgress = (audio.currentTime / audio.duration) * 100;
-                        setProgress(newProgress);
-                    }
-                }}
-            />
-            <ControlButton onClick={playNext}>⏭️</ControlButton>
-            <MusicInfo>
-                {currentMusic && <p>{currentMusic.title} - {currentMusic.artist}</p>}
-            </MusicInfo>
-            <VolumeControl value={volume} onChange={handleVolumeChange} />
-            <ProgressBar value={progress} onChange={handleProgressChange} />
+            <Container>
+                <MusicInfo>
+                    {currentMusic && <p>{currentMusic.title} - {currentMusic.artist}</p>}
+                </MusicInfo>
+            </Container>
+
+            <ContainerFlex>
+                <div>
+                    <FontAwesomeIcon icon={faBackward} onClick={playPrevious} />
+                </div>
+                <div>
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} onClick={togglePlayPause} />
+                </div>
+                <audio 
+                    ref={audioRef} 
+                    src={currentMusic?.url} 
+                    autoPlay
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onTimeUpdate={() => {
+                        const audio = audioRef.current;
+                        if (audio) {
+                            const newProgress = (audio.currentTime / audio.duration) * 100;
+                            setProgress(newProgress);
+                        }
+                    }}
+                />
+                <div>
+                    <FontAwesomeIcon icon={faForward} onClick={playNext} />
+                </div>
+                <ProgressBar value={progress} onChange={handleProgressChange} />
+            </ContainerFlex>
+            
+            <Container>
+                <VolumeControl value={volume} onChange={handleVolumeChange} />
+            </Container>
         </ControlBar>
     );
 }
