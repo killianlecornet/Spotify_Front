@@ -17,15 +17,16 @@ const ControlBar = styled.div`
     padding: 10px;
 `;
 
+const Container = styled.div`
+    display: flex;
+`;
+
 const ContainerFlex = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-`;
-
-const Container = styled.div`
-    display: flex;
+    max-width: 10rem;
 `;
 
 const ProgressBar = styled.input.attrs({
@@ -49,7 +50,7 @@ const VolumeControl = styled.input.attrs({
 const MusicInfo = styled.div`
     flex-grow: 1;
     text-align: center;
-    width: 20%;
+    max-width: 9rem;
 `;
 
 const ControlButton = styled.button`
@@ -101,11 +102,9 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
 
     return (
         <ControlBar>
-            <Container>
-                <MusicInfo>
-                    {currentMusic && <p>{currentMusic.title} - {currentMusic.artist}</p>}
-                </MusicInfo>
-            </Container>
+            <MusicInfo>
+                {currentMusic && <p>{currentMusic.title} - {currentMusic.artist}</p>}
+            </MusicInfo>
 
             <ContainerFlex>
                 <div>

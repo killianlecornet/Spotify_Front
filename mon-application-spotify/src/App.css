@@ -44,6 +44,7 @@ body {
   width: 100rem;
   color: white;
   background-color: #121212;
+  display: flex;
 }
 
 h1 {
