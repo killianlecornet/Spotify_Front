@@ -38,6 +38,7 @@ function App() {
                     <div className='iconMargin'>
                         <FontAwesomeIcon icon={faBook} /> bibliotheque
                     </div>
+                    <MusicList musics={musics} toggleFavorite={toggleFavorite} favorites={favorites} />
                 </div>
             </div>
 
