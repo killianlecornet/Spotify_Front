@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MusicPlayer from './MusicPlayer';
-import MusicControlBar from './MusicControlBar'; // Assurez-vous d'avoir créé ce composant
+import MusicControlBar from './MusicControlBar';
 
 function MusicList() {
     const [musics, setMusics] = useState([]);
@@ -43,6 +43,7 @@ function MusicList() {
             {musics.map((music, index) => (
                 <div key={music._id} onClick={() => setCurrentMusicIndex(index)}>
                     <h4>{music.title}</h4>
+                    <img src={music.imageUrl} alt={music.title} style={{ width: '100px', height: '100px' }} />
                     <span onClick={(e) => {
                         e.stopPropagation();
                         toggleFavorite(music._id);
