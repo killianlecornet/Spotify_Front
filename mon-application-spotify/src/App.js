@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import MusicList from './components/MusicList';
-import FavoritesPage from './components/FavoritesPage';
+import MusicList from './components/MusicList/MusicList';
+import FavoritesPage from './components/FavoritesPage/FavoritesPage';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import MusicForm from './components/MusicForm';
-import Search from './components/SearchByArtist';
+// import MusicForm from './components/MusicForm/MusicForm';
+// import Search from './components/SearchByArtist';
 
 function App() {
     const [musics, setMusics] = useState([]);

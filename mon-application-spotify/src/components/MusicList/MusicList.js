@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MusicPlayer from './MusicPlayer';
-import MusicControlBar from './MusicControlBar';
+// import MusicPlayer from '../MusicPlayer/MusicPlayer';
+import MusicControlBar from '../MusicControlBar/MusicControlBar';
+import './MusicList.css';
 
 function MusicList() {
     const [musics, setMusics] = useState([]);
@@ -41,7 +42,7 @@ function MusicList() {
         <div>
             <h1>Liste des Musiques</h1>
             {musics.map((music, index) => (
-                <div key={music._id} onClick={() => setCurrentMusicIndex(index)}>
+                <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='wrapper'>
                     <h4>{music.title}</h4>
                     <img src={music.imageUrl} alt={music.title} style={{ width: '100px', height: '100px' }} />
                     <span onClick={(e) => {

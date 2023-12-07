@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './MusicForm.css';
 
 function MusicForm() {
     const [music, setMusic] = useState({ title: '', artist: '', genre: '' });

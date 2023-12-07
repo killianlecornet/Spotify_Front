@@ -1,35 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faForward, faPause, faPlay, faVolumeHigh, faVolumeLow, faVolumeOff } from '@fortawesome/free-solid-svg-icons';
-
-// Styles
-const ControlBar = styled.div`
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #121212;
-    color: white;
-    padding: 10px;
-`;
-
-const Container = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-`;
-
-const ContainerFlex = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 10rem;
-`;
+import { faBackward, faForward, faPause, faPlay, faVolumeHigh, faVolumeLow, faVolumeOff, faRepeat, faRedo } from '@fortawesome/free-solid-svg-icons';
+import './MusicControlBar.css';
 
 const ProgressBar = styled.input.attrs({
     type: 'range',
@@ -49,24 +22,11 @@ const VolumeControl = styled.input.attrs({
     width: 100px;
 `;
 
-const MusicInfo = styled.div`
-    flex-grow: 1;
-    text-align: center;
-    max-width: 9rem;
-`;
-
-const ControlButton = styled.button`
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    margin: 0 10px;
-`;
-
 function MusicControlBar({ currentMusic, playNext, playPrevious }) {
     const [isPlaying, setIsPlaying] = useState(true);
     const [progress, setProgress] = useState(0);
     const [volume, setVolume] = useState(100);
+    const [isLooping, setIsLooping] = useState(false);
     const audioRef = useRef(null);
 
     useEffect(() => {
@@ -84,6 +44,45 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
         setIsPlaying(!isPlaying);
     };
 
+    const toggleLoop = () => {
+        setIsLooping(!isLooping);
+    };
+
+    const toggleVolumeMute = () => {
+        const audio = audioRef.current;
+        if (audio) {
+            const newVolume = audio.volume === 0 ? 100 : 0;
+            setVolume(newVolume);
+            audio.volume = newVolume / 100;
+            // Si le volume est réglé à 0, mettez la lecture en pause
+            if (newVolume === 0) {
+                audio.pause();
+                setIsPlaying(false);
+            } else {
+                // Sinon, reprenez la lecture si elle était en pause
+                if (!isPlaying) {
+                    audio.play();
+                    setIsPlaying(true);
+                }
+            }
+        }
+    };
+
+    const handleSongEnd = () => {
+        if (isLooping) {
+            // Répéter la musique en remettant la progression à zéro
+            setProgress(0);
+            const audio = audioRef.current;
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        } else {
+            // Jouer la musique suivante en fin de piste
+            playNext();
+        }
+    };
+
     const handleProgressChange = (event) => {
         const newProgress = event.target.value;
         setProgress(newProgress);
@@ -99,16 +98,27 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
         const audio = audioRef.current;
         if (audio) {
             audio.volume = newVolume / 100;
+            // Si le volume est réglé à 0, mettez la lecture en pause
+            if (parseInt(newVolume, 10) === 0) {
+                audio.pause();
+                setIsPlaying(false);
+            } else {
+                // Sinon, reprenez la lecture si elle était en pause
+                if (!isPlaying) {
+                    audio.play();
+                    setIsPlaying(true);
+                }
+            }
         }
     };
 
     return (
-        <ControlBar>
-            <MusicInfo>
+        <div className='controlBar'>
+            <div className='musicInfo'>
                 {currentMusic && <p>{currentMusic.title} - {currentMusic.artist}</p>}
-            </MusicInfo>
+            </div>
 
-            <ContainerFlex>
+            <div className='midWrapper'>
                 <div>
                     <FontAwesomeIcon icon={faBackward} onClick={playPrevious} />
                 </div>
@@ -128,20 +138,20 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
                             setProgress(newProgress);
                         }
                     }}
+                    onEnded={handleSongEnd} // Appelé lorsque la piste se termine
                 />
                 <div>
                     <FontAwesomeIcon icon={faForward} onClick={playNext} />
                 </div>
                 <ProgressBar value={progress} onChange={handleProgressChange} />
-            </ContainerFlex>
+            </div>
             
-            <Container>
-                {/* <FontAwesomeIcon icon={faVolumeOff} />
-                <FontAwesomeIcon icon={faVolumeLow} /> */}
-                <FontAwesomeIcon icon={faVolumeHigh} />
+            <div className='volume'>
+                <FontAwesomeIcon icon={isLooping ? faRepeat : faRedo} onClick={toggleLoop} />
+                <FontAwesomeIcon icon={volume === 0 ? faVolumeOff : faVolumeHigh} onClick={toggleVolumeMute} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />
-            </Container>
-        </ControlBar>
+            </div>
+        </div>
     );
 }
 

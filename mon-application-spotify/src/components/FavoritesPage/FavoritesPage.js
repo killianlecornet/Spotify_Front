@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import MusicPlayer from './MusicPlayer';
+import MusicPlayer from '../MusicPlayer/MusicPlayer';
+import './FavoritesPage.css';
 
 function FavoritesPage({ musics }) {
     const [favorites, setFavorites] = useState([]);

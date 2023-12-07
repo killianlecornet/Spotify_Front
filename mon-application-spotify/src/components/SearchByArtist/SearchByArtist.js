@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './SearchByArtist.css';
 
 function SearchByArtist() {
     const [searchTerm, setSearchTerm] = useState('');
