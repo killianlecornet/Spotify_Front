@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faForward, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faForward, faPause, faPlay, faVolumeHigh, faVolumeLow, faVolumeOff } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
 const ControlBar = styled.div`
@@ -19,6 +19,8 @@ const ControlBar = styled.div`
 
 const Container = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: space-around;
 `;
 
 const ContainerFlex = styled.div`
@@ -134,6 +136,9 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
             </ContainerFlex>
             
             <Container>
+                {/* <FontAwesomeIcon icon={faVolumeOff} />
+                <FontAwesomeIcon icon={faVolumeLow} /> */}
+                <FontAwesomeIcon icon={faVolumeHigh} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />
             </Container>
         </ControlBar>

@@ -2,7 +2,7 @@ body {
   font-family: 'Helvetica Neue', sans-serif;
   background-color: #000000;
   margin: 20px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .App{
