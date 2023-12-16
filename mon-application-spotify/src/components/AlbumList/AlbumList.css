@@ -1,0 +1,44 @@
+.carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    transition: transform 4.5s ease-in-out;
+    gap: 30px;
+}
+
+.carousel.transition {
+    transition: none;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    background-color: #181818;
+    padding: 10px;
+    border-radius: 10px;
+    width: 12rem;
+}
+
+.carousel-item img{
+    height: 16rem;
+    width: 11.5rem;
+    border-radius: 10px;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ccc;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 5px;
+}

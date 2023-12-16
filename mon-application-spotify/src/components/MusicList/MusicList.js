@@ -41,18 +41,20 @@ function MusicList() {
     return (
         <div>
             <h1>Liste des Musiques</h1>
-            {musics.map((music, index) => (
-                <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='wrapper'>
-                    <h4>{music.title}</h4>
-                    <img src={music.imageUrl} alt={music.title} style={{ width: '100px', height: '100px' }} />
-                    <span onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite(music._id);
-                    }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                        {favorites.includes(music._id) ? '❤️' : '🤍'}
-                    </span>
-                </div>
-            ))}
+            <div>
+                {musics.map((music, index) => (
+                    <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='musicList'>
+                        <h4>{music.title}</h4>
+                        <img src={music.imageUrl} alt={music.title} style={{ width: '100px', height: '100px' }} />
+                        <span onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavorite(music._id);
+                        }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                            {favorites.includes(music._id) ? '❤️' : '🤍'}
+                        </span>
+                    </div>
+                ))}
+            </div>
             <MusicControlBar
                 currentMusic={currentMusic}
                 playNext={playNextMusic}

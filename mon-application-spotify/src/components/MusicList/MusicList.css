@@ -1,5 +1,8 @@
-.wrapper{
+.musicList{
+    height: 230px;
+    width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: black;
 }
