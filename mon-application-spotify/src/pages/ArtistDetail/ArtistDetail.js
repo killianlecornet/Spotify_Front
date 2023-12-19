@@ -52,6 +52,8 @@ function ArtistDetail() {
                         ))}
                     </div>
                     <MusicControlBar
+                        music={musics}
+                        setCurrentMusicIndex={setCurrentMusicIndex}
                         currentMusic={currentMusic}
                         playNext={playNextMusic}
                         playPrevious={playPreviousMusic}

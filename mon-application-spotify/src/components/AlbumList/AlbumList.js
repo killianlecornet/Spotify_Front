@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './AlbumList.css';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 function AlbumList() {
     const [albums, setAlbums] = useState([]);
@@ -32,6 +34,7 @@ function AlbumList() {
         setTransition(false);
     };
 
+
     return (
         <div>
             <h1>Liste des Albums</h1>
@@ -46,12 +49,8 @@ function AlbumList() {
                         </Link> */}
                     </Link>
                 ))}
-                <button className='prev' onClick={handlePrev} disabled={startIndex === 0}>
-                    Précédent
-                </button>
-                <button className='next' onClick={handleNext} disabled={startIndex >= albums.length - 6}>
-                    Suivant
-                </button>
+                <FontAwesomeIcon icon={faChevronLeft} className={`button prev ${startIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev} />
+                <FontAwesomeIcon icon={faChevronRight} className={`button next ${startIndex >= albums.length - 6 ? 'disabled' : ''}`} onClick={handleNext} />
             </div>
         </div>
     );

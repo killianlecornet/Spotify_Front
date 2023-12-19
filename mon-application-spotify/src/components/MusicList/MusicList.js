@@ -29,12 +29,12 @@ function MusicList() {
 
     const playNextMusic = () => {
         setCurrentMusicIndex(index => (index + 1) % musics.length);
-    };  
-    
+    };
+
     const playPreviousMusic = () => {
         setCurrentMusicIndex(index => (index - 1 + musics.length) % musics.length);
     };
-    
+
 
     const currentMusic = musics[currentMusicIndex];
 
@@ -56,6 +56,8 @@ function MusicList() {
                 ))}
             </div>
             <MusicControlBar
+                music={musics}
+                setCurrentMusicIndex={setCurrentMusicIndex}
                 currentMusic={currentMusic}
                 playNext={playNextMusic}
                 playPrevious={playPreviousMusic}

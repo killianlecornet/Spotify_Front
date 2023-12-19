@@ -28,21 +28,30 @@
     border-radius: 10px;
 }
 
-.prev,
-.next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ccc;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #121212;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #139240;
 }
 
 .prev {
-    left: 10px;
+  margin-right: auto; /* Place le bouton "Précédent" à l'extrême gauche */
 }
 
 .next {
-    right: 5px;
+  margin-left: auto; /* Place le bouton "Suivant" à l'extrême droite */
 }

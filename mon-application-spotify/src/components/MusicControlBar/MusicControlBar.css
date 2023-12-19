@@ -28,3 +28,10 @@
     color: white;
     padding: 10px;
 }
+.infosMusic{
+    display: flex;
+    width: 18rem;
+}
+.random.active {
+    color: #139240; /* ou toute autre couleur que vous souhaitez */
+}

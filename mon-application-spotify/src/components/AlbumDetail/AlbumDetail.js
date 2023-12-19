@@ -22,14 +22,30 @@ function AlbumDetail() {
             .catch(error => console.error('Erreur :', error));
     }, [id]);
 
-    const toggleFavorite = (musicId) => {
+    const toggleFavorite = (music) => {
+        const musicId = music._id;
         const updatedFavorites = favorites.includes(musicId)
             ? favorites.filter(id => id !== musicId)
             : [...favorites, musicId];
 
         setFavorites(updatedFavorites);
-        // Vous pouvez sauvegarder les favoris dans le stockage local si nécessaire
+
+        // Sauvegarder les favoris dans le localStorage
         localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+
+        // Stocker la musique dans le localStorage
+        const allMusics = JSON.parse(localStorage.getItem('allMusics')) || [];
+        const existingMusicIndex = allMusics.findIndex(existingMusic => existingMusic._id === musicId);
+
+        if (existingMusicIndex !== -1) {
+            // La musique est déjà dans le localStorage, mettez à jour les informations
+            allMusics[existingMusicIndex] = music;
+        } else {
+            // La musique n'est pas encore dans le localStorage, ajoutez-la
+            allMusics.push(music);
+        }
+
+        localStorage.setItem('allMusics', JSON.stringify(allMusics));
     };
 
     const playNextMusic = () => {
@@ -64,7 +80,7 @@ function AlbumDetail() {
                                 <p>{music.genre}</p>
                                 <span onClick={(e) => {
                                     e.stopPropagation();
-                                    toggleFavorite(music._id);
+                                    toggleFavorite(music);
                                 }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
                                     {favorites.includes(music._id) ? '❤️' : '🤍'}
                                 </span>
@@ -72,6 +88,8 @@ function AlbumDetail() {
                         ))}
                     </div>
                     <MusicControlBar
+                        music={musics}
+                        setCurrentMusicIndex={setCurrentMusicIndex}
                         currentMusic={currentMusic}
                         playNext={playNextMusic}
                         playPrevious={playPreviousMusic}

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from '../PlaylistList/PlaylistList';
 import { Link } from 'react-router-dom';
+import Coeur from '../../assets/liked-songs.png'
 
 function LeftNavbar() {
     return (
@@ -21,10 +22,16 @@ function LeftNavbar() {
 
             <div className='bottomLeft'>
                 <div className='iconMargin'>
-                    <FontAwesomeIcon icon={faBook} /> bibliotheque
+                    <FontAwesomeIcon icon={faBook} />  bibliotheque
                 </div>
                 <div>
-                    <PlaylistList/>
+                    <Link to={'/favorite'} className='playlist link'>
+                        <img src={Coeur} alt={'favorites'} />
+                        <p>Coups de coeur</p>
+                    </Link>
+                </div>
+                <div>
+                    <PlaylistList />
                 </div>
             </div>
         </div>

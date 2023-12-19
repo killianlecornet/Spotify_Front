@@ -1,9 +1,4 @@
-.playlistDetail{
-    display: flex;
-    gap: 30px;
-}
-
-.playlistList{
+.favoriteList{
     width: 87rem;
     height: 6rem;
     border-radius: 7px;
@@ -11,17 +6,16 @@
     gap: 200px;
     margin-top: 10px;
     align-items: center;
-    justify-content: space-between;
 }
 
-.playlistList img{
+.favoriteList img{
     height: 70px;
     width: 100px;
     border-radius: 3px;
     margin-left: 10px;
 }
 
-.playlistList:hover{
+.favoriteList:hover{
     cursor: pointer;
     background-color: #191919;
 }
