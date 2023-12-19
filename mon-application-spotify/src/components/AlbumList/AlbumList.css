@@ -11,6 +11,7 @@
 }
 
 .carousel-item {
+    text-decoration: none;
     flex: 0 0 auto;
     background-color: #181818;
     padding: 10px;

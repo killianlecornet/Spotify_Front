@@ -1,0 +1,35 @@
+.leftNavbar {
+    margin-right: 1rem;
+}
+
+.topLeft {
+    height: 100px;
+    width: 400px;
+    color: white;
+    background-color: #121212;
+    margin: 0px 1px 12px 0px;
+    padding: 1px;
+}
+
+.iconMargin {
+    margin: 20px;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+}
+
+.link:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.bottomLeft {
+    height: 53.7rem;
+    width: 400px;
+    color: white;
+    background-color: #121212;
+    padding: 1px;
+    border-radius: 5px;
+}

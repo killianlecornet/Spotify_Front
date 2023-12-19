@@ -2,41 +2,11 @@ body {
     font-family: 'Helvetica Neue', sans-serif;
     background-color: #000000;
     margin: 20px;
-    /* overflow: hidden; */
 }
 
 .App {
     display: flex;
-}
-
-.topLeft {
-    height: 100px;
-    width: 400px;
-    color: white;
-    background-color: #121212;
-    margin: 0px 1px 12px 0px;
-    padding: 1px;
-}
-
-.leftNavbar {
-    margin-right: 1rem;
-}
-
-.iconMargin {
-    margin: 20px;
-}
-
-.bottomLeft {
-    height: 53.7rem;
-    width: 400px;
-    color: white;
-    background-color: #121212;
-    padding: 1px;
-    border-radius: 5px;
-}
-
-.bookDiv {
-    margin: 20px;
+    width: 90rem;
 }
 
 .mainInfos {

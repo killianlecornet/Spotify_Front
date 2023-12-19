@@ -29,7 +29,7 @@ function MusicList() {
 
     const playNextMusic = () => {
         setCurrentMusicIndex(index => (index + 1) % musics.length);
-    };
+    };  
     
     const playPreviousMusic = () => {
         setCurrentMusicIndex(index => (index - 1 + musics.length) % musics.length);

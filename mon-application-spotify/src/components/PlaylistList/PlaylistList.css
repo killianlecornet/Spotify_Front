@@ -1,0 +1,19 @@
+.playlist {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    gap: 10px;
+    margin: 20px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.playlist img{
+    height: 4rem;
+    width: 4rem;
+    margin: 10px;
+}
+
+.playlist:hover {
+    background-color: #191919;
+}

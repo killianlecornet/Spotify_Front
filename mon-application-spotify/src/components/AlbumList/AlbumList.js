@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AlbumList.css';
+import { Link } from 'react-router-dom';
 
 function AlbumList() {
     const [albums, setAlbums] = useState([]);
@@ -11,7 +12,7 @@ function AlbumList() {
         fetch('http://localhost:3001/api/album')
             .then(response => response.json())
             .then(data => {
-                console.log('Données récupérées :', data);
+                console.log('AlbumList récupérées :', data);
                 setAlbums(data);
             })
             .catch(error => console.error('Erreur :', error));
@@ -36,11 +37,14 @@ function AlbumList() {
             <h1>Liste des Albums</h1>
             <div className={`carousel ${transition ? 'transition' : ''}`} onTransitionEnd={handleTransitionEnd}>
                 {albums.slice(startIndex, startIndex + 6).map(album => (
-                    <div key={album._id} className='carousel-item'>
+                    <Link to={`/album/${album._id}`} key={album._id} className='carousel-item'>
                         <img src={album.imageUrl} alt={album.imageUrl} />
-                        <p>Titre de l'album : {album.title}</p>
-                        <p>Artiste : {album.artist.name}</p>
-                    </div>
+                        <p className='link'>Album : {album.title}</p>
+                        <p className='link'>Artiste : {album.artist?.name ?? 'Artiste inconnu'}</p>
+                        {/* <Link to={`/artist/${album.artist._id}`} key={album.artist._id} className='link'>
+                            <p className='link'>Artiste : {album.artist?.name ?? 'Artiste inconnu'}</p>
+                        </Link> */}
+                    </Link>
                 ))}
                 <button className='prev' onClick={handlePrev} disabled={startIndex === 0}>
                     Précédent

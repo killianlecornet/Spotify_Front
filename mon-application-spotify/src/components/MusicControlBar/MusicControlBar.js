@@ -147,7 +147,7 @@ function MusicControlBar({ currentMusic, playNext, playPrevious }) {
             </div>
             
             <div className='volume'>
-                <FontAwesomeIcon icon={isLooping ? faRepeat : faRedo} onClick={toggleLoop} />
+                <FontAwesomeIcon icon={isLooping ? faRedo : faRepeat} onClick={toggleLoop} />
                 <FontAwesomeIcon icon={volume === 0 ? faVolumeOff : faVolumeHigh} onClick={toggleVolumeMute} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />
             </div>
