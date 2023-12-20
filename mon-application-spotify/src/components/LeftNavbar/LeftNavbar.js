@@ -16,7 +16,9 @@ function LeftNavbar() {
                     </Link>
                 </div>
                 <div className='iconMargin'>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Recherche
+                    <Link to={'/search'} className='link'>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} /> Recherche
+                    </Link>
                 </div>
             </div>
 

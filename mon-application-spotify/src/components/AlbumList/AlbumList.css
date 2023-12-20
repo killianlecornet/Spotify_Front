@@ -1,31 +1,31 @@
 .carousel {
-    display: flex;
-    overflow: hidden;
-    position: relative;
-    transition: transform 4.5s ease-in-out;
-    gap: 30px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transition: transform 4.5s ease-in-out;
+  gap: 30px;
 }
 
 .carousel.transition {
-    transition: none;
+  transition: none;
 }
 
 .carousel-item {
-    text-decoration: none;
-    flex: 0 0 auto;
-    background-color: #181818;
-    padding: 10px;
-    border-radius: 10px;
-    width: 12rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-decoration: none;
+  flex: 0 0 auto;
+  background-color: #181818;
+  padding: 10px;
+  border-radius: 10px;
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.carousel-item img{
-    height: 16rem;
-    width: 11.5rem;
-    border-radius: 10px;
+.carousel-item img {
+  height: 16rem;
+  width: 11.5rem;
+  border-radius: 10px;
 }
 
 .button-container {
@@ -49,9 +49,11 @@
 }
 
 .prev {
-  margin-right: auto; /* Place le bouton "Précédent" à l'extrême gauche */
+  margin-right: auto;
+  /* Place le bouton "Précédent" à l'extrême gauche */
 }
 
 .next {
-  margin-left: auto; /* Place le bouton "Suivant" à l'extrême droite */
+  margin-left: auto;
+  /* Place le bouton "Suivant" à l'extrême droite */
 }
