@@ -10,7 +10,7 @@ function ArtistDetail() {
     const [currentMusicIndex, setCurrentMusicIndex] = useState(null);
 
     useEffect(() => {
-        fetch(`https://spotify-api-gules-two.vercel.app/api/artist/${id}`)
+        fetch(`http://localhost:3001/api/artist/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Données récupérées :', data);

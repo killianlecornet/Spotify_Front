@@ -11,7 +11,7 @@ function AlbumList() {
 
     useEffect(() => {
         // Assurez-vous que l'URL correspond à votre route pour récupérer tous les albums
-        fetch('https://spotify-api-gules-two.vercel.app/api/album')
+        fetch('http://localhost:3001/api/album')
             .then(response => response.json())
             .then(data => {
                 console.log('AlbumList récupérées :', data);
