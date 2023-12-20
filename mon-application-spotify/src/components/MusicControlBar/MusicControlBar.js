@@ -117,7 +117,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
     const playRandomMusic = () => {
         if (musics && musics.length > 0) {
             const randomIndex = Math.floor(Math.random() * musics.length);
-            setCurrentMusicIndex(randomIndex);
             console.log("Random music played. isRandom:", true);
         } else {
             console.error("No music available for random play.");

@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom';
 import LeftNavbar from '../../components/LeftNavbar/LeftNavbar';
 import MusicControlBar from '../../components/MusicControlBar/MusicControlBar';
 
-function ArtistDetail() {
+function DetailArtist() {
     const { id } = useParams();
     const [artist, setArtist] = useState([]);
     const [musics, setMusics] = useState([]);
     const [currentMusicIndex, setCurrentMusicIndex] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/api/artist/${id}`)
+        fetch(`${process.env.URI_API}/api/artist/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Données récupérées :', data);
@@ -64,4 +64,4 @@ function ArtistDetail() {
     );
 }
 
-export default ArtistDetail;
+export default DetailArtist;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MusicControlBar from '../../components/MusicControlBar/MusicControlBar';
 import './AlbumDetail.css';
+import { Link } from 'react-router-dom';
 
 function AlbumDetail() {
     const { id } = useParams();
@@ -11,7 +12,7 @@ function AlbumDetail() {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/api/album/${id}`)
+        fetch(`${process.env.URI_API}/api/album/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('detail album :', data);
@@ -65,7 +66,9 @@ function AlbumDetail() {
                     <img src={album.imageUrl} alt={album.imageUrl} height='200px' className='link' />
                     <div className='textAlbum'>
                         <h1 className='link'>{album.title}</h1>
-                        <h2 className='link'>{album.artist?.name ?? "Nom de l'artiste non disponible"}</h2>
+                        <Link to={`/artist/${album.artist?._id}`} key={album.artist?._id} className='link'>
+                            <h2 className='link'>{album.artist?.name ?? 'Artiste inconnu'}</h2>
+                        </Link>
                         <p className='link'>{album.description ?? "Aucune description pour cet album"}</p>
                     </div>
                 </div>

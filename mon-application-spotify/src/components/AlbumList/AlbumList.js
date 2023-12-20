@@ -8,25 +8,33 @@ function AlbumList() {
     const [albums, setAlbums] = useState([]);
     const [startIndex, setStartIndex] = useState(0);
     const [transition, setTransition] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Assurez-vous que l'URL correspond à votre route pour récupérer tous les albums
-        fetch('http://localhost:3001/api/album')
-            .then(response => response.json())
+        fetch(`${process.env.URI_API}/api/album`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('La récupération des albums a échoué.');
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('AlbumList récupérées :', data);
                 setAlbums(data);
             })
-            .catch(error => console.error('Erreur :', error));
+            .catch(error => {
+                console.error('Erreur lors de la récupération des albums :', error);
+                setError('Une erreur est survenue lors de la récupération des albums.');
+            });
     }, []);
 
     const handleNext = () => {
-        setStartIndex(prevIndex => Math.min(prevIndex + 7, albums.length - 7));
+        setStartIndex(prevIndex => Math.min(prevIndex + 6, albums.length - 6));
         setTransition(true);
     };
 
     const handlePrev = () => {
-        setStartIndex(prevIndex => Math.max(prevIndex - 7, 0));
+        setStartIndex(prevIndex => Math.max(prevIndex - 6, 0));
         setTransition(true);
     };
 
@@ -34,6 +42,9 @@ function AlbumList() {
         setTransition(false);
     };
 
+    if (error) {
+        return <div>Erreur : {error}</div>;
+    }
 
     return (
         <div>
@@ -43,10 +54,9 @@ function AlbumList() {
                     <Link to={`/album/${album._id}`} key={album._id} className='carousel-item'>
                         <img src={album.imageUrl} alt={album.imageUrl} />
                         <p className='link'>Album : {album.title}</p>
-                        <p className='link'>Artiste : {album.artist?.name ?? 'Artiste inconnu'}</p>
-                        {/* <Link to={`/artist/${album.artist._id}`} key={album.artist._id} className='link'>
+                        <Link to={`/artist/${album.artist?._id}`} key={album.artist?._id} className='link'>
                             <p className='link'>Artiste : {album.artist?.name ?? 'Artiste inconnu'}</p>
-                        </Link> */}
+                        </Link>
                     </Link>
                 ))}
                 <FontAwesomeIcon icon={faChevronLeft} className={`button prev ${startIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev} />

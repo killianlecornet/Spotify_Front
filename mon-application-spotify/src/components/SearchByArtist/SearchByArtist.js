@@ -13,7 +13,7 @@ function SearchByArtist() {
         event.preventDefault();
         console.log("Recherche lancée", searchTerm); // Pour vérifier la valeur saisie
         try {
-            const response = await fetch(`http://localhost:3001/api/musics/search?artist=${searchTerm}`);
+            const response = await fetch(`${process.env.URI_API}/api/musics/search?artist=${searchTerm}`);
             const data = await response.json();
             console.log("Résultats de recherche", data); // Pour voir les résultats obtenus
             setSearchResults(data);

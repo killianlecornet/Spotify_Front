@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import DetailPlaylist from "../pages/DetailPlaylist/DetailPlaylist";
 import DetailAlbum from "../pages/DetailAlbum/DetailAlbum";
-import ArtistDetail from "../pages/ArtistDetail/ArtistDetail";
+import DetailArtist from "../pages/DetailArtist/DetailArtist";
 import DetailFavorite from "../pages/DetailFavorite/DetailFavorite";
 
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/artist/:id", 
-        element: <ArtistDetail />
+        element: <DetailArtist />
     },
     {
         path: "/favorite", 
