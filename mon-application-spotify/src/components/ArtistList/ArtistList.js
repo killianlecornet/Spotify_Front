@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ArtistList.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 function ArtistList() {
     const [artists, setArtists] = useState([]);
@@ -36,18 +39,13 @@ function ArtistList() {
             <h1>Liste des Artistes</h1>
             <div className={`carousel ${transition ? 'transition' : ''}`} onTransitionEnd={handleTransitionEnd}>
                 {artists.slice(startIndex, startIndex + 6).map(artist => (
-                    <div key={artist._id} className='carousel-item'>
+                    <Link to={`/artist/${artist._id}`} key={artist._id} className='carousel-item'>
                         <img src={artist.imageUrl} alt={artist.imageUrl} />
-                        <p>Nom: {artist.name}</p>
-                        <p>Genre: {artist.description}</p>
-                    </div>
+                        <p className='link'>Artiste: {artist.name}</p>
+                    </Link>
                 ))}
-                <button className='prev' onClick={handlePrev} disabled={startIndex === 0}>
-                    Précédent
-                </button>
-                <button className='next' onClick={handleNext} disabled={startIndex >= artists.length - 6}>
-                    Suivant
-                </button>
+                <FontAwesomeIcon icon={faChevronLeft} className={`button prev ${startIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev} />
+                <FontAwesomeIcon icon={faChevronRight} className={`button next ${startIndex >= artists.length - 6 ? 'disabled' : ''}`} onClick={handleNext} />
             </div>
         </div>
     );

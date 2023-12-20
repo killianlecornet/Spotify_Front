@@ -10,7 +10,7 @@ body {
 }
 
 .mainInfos {
-    height: 58rem;
+    height: 100%;
     width: 100rem;
     color: white;
     background-color: #121212;
