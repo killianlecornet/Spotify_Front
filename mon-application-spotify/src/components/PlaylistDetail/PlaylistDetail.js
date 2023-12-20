@@ -11,7 +11,7 @@ function PlaylistDetail() {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.URI_API}/api/playlist/${id}`)
+        fetch(`${process.env.REACT_APP_URI_API}/api/playlist/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Données récupérées :', data);

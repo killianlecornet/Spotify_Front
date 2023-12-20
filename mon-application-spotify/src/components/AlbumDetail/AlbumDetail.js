@@ -12,7 +12,7 @@ function AlbumDetail() {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.URI_API}/api/album/${id}`)
+        fetch(`${process.env.REACT_APP_URI_API}/api/album/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('detail album :', data);

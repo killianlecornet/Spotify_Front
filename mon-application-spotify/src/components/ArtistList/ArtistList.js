@@ -8,7 +8,7 @@ function ArtistList() {
 
     useEffect(() => {
         // Assurez-vous que l'URL correspond à votre route pour récupérer tous les artistes
-        fetch(`${process.env.URI_API}/api/artist`)
+        fetch(`${process.env.REACT_APP_URI_API}/api/artist`)
             .then(response => response.json())
             .then(data => {
                 console.log('Données récupérées :', data);

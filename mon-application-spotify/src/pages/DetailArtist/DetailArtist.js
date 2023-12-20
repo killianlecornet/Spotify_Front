@@ -10,7 +10,7 @@ function DetailArtist() {
     const [currentMusicIndex, setCurrentMusicIndex] = useState(null);
 
     useEffect(() => {
-        fetch(`${process.env.URI_API}/api/artist/${id}`)
+        fetch(`${process.env.REACT_APP_URI_API}/api/artist/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Données récupérées :', data);

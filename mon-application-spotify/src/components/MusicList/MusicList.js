@@ -12,7 +12,7 @@ function MusicList() {
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
         setFavorites(savedFavorites);
 
-        fetch(`${process.env.URI_API}/api/musics`)
+        fetch(`${process.env.REACT_APP_URI_API}/api/musics`)
             .then(response => response.json())
             .then(data => setMusics(data))
             .catch(error => console.error('Erreur:', error));

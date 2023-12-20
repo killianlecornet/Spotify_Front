@@ -7,7 +7,7 @@ function PlaylistList() {
 
     useEffect(() => {
         // Assurez-vous que l'URL correspond à votre route pour récupérer tous les playlists
-        fetch(`${process.env.URI_API}/api/playlist`)
+        fetch(`${process.env.REACT_APP_URI_API}/api/playlist`)
             .then(response => response.json())
             .then(data => {
                 console.log('Playlists récupérées :', data);
