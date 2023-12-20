@@ -11,7 +11,7 @@ function SearchBar() {
         try {
             // Fetch search results from your API only if searchTerm is not empty
             if (searchTerm.trim() !== '') {
-                const response = await fetch(`http://localhost:3001/api/search?query=${searchTerm}`);
+                const response = await fetch(`${process.env.REACT_APP_URI_API}/api/search?query=${searchTerm}`);
                 const data = await response.json();
                 setSearchResults(data);
             } else {
