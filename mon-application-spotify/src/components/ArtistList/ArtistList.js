@@ -8,7 +8,7 @@ function ArtistList() {
 
     useEffect(() => {
         // Assurez-vous que l'URL correspond à votre route pour récupérer tous les artistes
-        fetch('http://localhost:3001/api/artist')
+        fetch('https://spotify-api-gules-two.vercel.app/api/artist')
             .then(response => response.json())
             .then(data => {
                 console.log('Données récupérées :', data);

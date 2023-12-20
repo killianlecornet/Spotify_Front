@@ -12,7 +12,7 @@ function MusicList() {
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
         setFavorites(savedFavorites);
 
-        fetch('http://localhost:3001/api/musics')
+        fetch('https://spotify-api-gules-two.vercel.app/api/musics')
             .then(response => response.json())
             .then(data => setMusics(data))
             .catch(error => console.error('Erreur:', error));

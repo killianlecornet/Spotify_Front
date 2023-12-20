@@ -11,7 +11,7 @@ function AlbumDetail() {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/api/album/${id}`)
+        fetch(`https://spotify-api-gules-two.vercel.app/api/album/${id}`)
             .then(response => response.json())
             .then(data => {
                 console.log('detail album :', data);
