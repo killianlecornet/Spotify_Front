@@ -62,7 +62,7 @@ function AlbumDetail() {
     return (
         <div className='mainInfosAlbum'>
             <div className='albumDetail'>
-                <img src={album.imageUrl} alt={album.imageUrl} height='200px' className='link' />
+                <img loading="lazy" src={album.imageUrl} alt={album.imageUrl} height='200px' className='link' />
                 <div className='textAlbum'>
                     <h1 className='link'>{album.title}</h1>
                     <Link to={`/artist/${album.artist?._id}`} key={album.artist?._id} className='link'>
@@ -77,7 +77,7 @@ function AlbumDetail() {
                 <div>
                     {musics.map((music, index) => (
                         <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='musiqueList'>
-                            <img src={music.imageUrl} alt={music.title} />
+                            <img loading="lazy" src={music.imageUrl} alt={music.title} />
                             <h3>{music.title}</h3>
                             <p>{music.genre}</p>
                             <span onClick={(e) => {

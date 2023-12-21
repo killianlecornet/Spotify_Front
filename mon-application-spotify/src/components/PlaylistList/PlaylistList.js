@@ -21,7 +21,7 @@ function PlaylistList() {
             <div>
                 {playlists.map(playlist => (
                     <Link to={`/playlist/${playlist._id}`} key={playlist._id} className='playlist link'>
-                        <img src={playlist.imageUrl} alt={playlist.imageUrl} />
+                        <img loading="lazy" src={playlist.imageUrl} alt={playlist.imageUrl} />
                         <p>{playlist.title}</p>
                     </Link>
                 ))}

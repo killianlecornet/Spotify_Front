@@ -40,7 +40,7 @@ function ArtistList() {
             <div className={`carousel ${transition ? 'transition' : ''}`} onTransitionEnd={handleTransitionEnd}>
                 {artists.slice(startIndex, startIndex + 5).map(artist => (
                     <Link to={`/artist/${artist._id}`} key={artist._id} className='carousel-item'>
-                        <img src={artist.imageUrl} alt={artist.imageUrl} />
+                        <img loading="lazy" src={artist.imageUrl} alt={artist.imageUrl} />
                         <p className='link'>Artiste: {artist.name}</p>
                     </Link>
                 ))}
