@@ -21,12 +21,12 @@ function ArtistList() {
     }, []);
 
     const handleNext = () => {
-        setStartIndex(prevIndex => Math.min(prevIndex + 7, artists.length - 7));
+        setStartIndex(prevIndex => Math.min(prevIndex + 5, artists.length - 5));
         setTransition(true);
     };
 
     const handlePrev = () => {
-        setStartIndex(prevIndex => Math.max(prevIndex - 7, 0));
+        setStartIndex(prevIndex => Math.max(prevIndex - 5, 0));
         setTransition(true);
     };
 
@@ -38,14 +38,14 @@ function ArtistList() {
         <div>
             <h1>Liste des Artistes</h1>
             <div className={`carousel ${transition ? 'transition' : ''}`} onTransitionEnd={handleTransitionEnd}>
-                {artists.slice(startIndex, startIndex + 6).map(artist => (
+                {artists.slice(startIndex, startIndex + 5).map(artist => (
                     <Link to={`/artist/${artist._id}`} key={artist._id} className='carousel-item'>
                         <img src={artist.imageUrl} alt={artist.imageUrl} />
                         <p className='link'>Artiste: {artist.name}</p>
                     </Link>
                 ))}
                 <FontAwesomeIcon icon={faChevronLeft} className={`button prev ${startIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev} />
-                <FontAwesomeIcon icon={faChevronRight} className={`button next ${startIndex >= artists.length - 6 ? 'disabled' : ''}`} onClick={handleNext} />
+                <FontAwesomeIcon icon={faChevronRight} className={`button next ${startIndex >= artists.length - 5 ? 'disabled' : ''}`} onClick={handleNext} />
             </div>
         </div>
     );

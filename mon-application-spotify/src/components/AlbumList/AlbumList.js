@@ -29,12 +29,12 @@ function AlbumList() {
     }, []);
 
     const handleNext = () => {
-        setStartIndex(prevIndex => Math.min(prevIndex + 6, albums.length - 6));
+        setStartIndex(prevIndex => Math.min(prevIndex + 5, albums.length - 4));
         setTransition(true);
     };
 
     const handlePrev = () => {
-        setStartIndex(prevIndex => Math.max(prevIndex - 6, 0));
+        setStartIndex(prevIndex => Math.max(prevIndex - 5, 0));
         setTransition(true);
     };
 
@@ -50,7 +50,7 @@ function AlbumList() {
         <div>
             <h1>Liste des Albums</h1>
             <div className={`carousel ${transition ? 'transition' : ''}`} onTransitionEnd={handleTransitionEnd}>
-                {albums.slice(startIndex, startIndex + 6).map(album => (
+                {albums.slice(startIndex, startIndex + 5).map(album => (
                     <Link to={`/album/${album._id}`} key={album._id} className='carousel-item'>
                         <img src={album.imageUrl} alt={album.imageUrl} />
                         <p className='link'>Album : {album.title}</p>
@@ -60,7 +60,7 @@ function AlbumList() {
                     </Link>
                 ))}
                 <FontAwesomeIcon icon={faChevronLeft} className={`button prev ${startIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev} />
-                <FontAwesomeIcon icon={faChevronRight} className={`button next ${startIndex >= albums.length - 6 ? 'disabled' : ''}`} onClick={handleNext} />
+                <FontAwesomeIcon icon={faChevronRight} className={`button next ${startIndex >= albums.length - 5 ? 'disabled' : ''}`} onClick={handleNext} />
             </div>
         </div>
     );

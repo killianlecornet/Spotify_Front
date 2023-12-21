@@ -54,21 +54,21 @@ function SearchBar() {
                 <div className="card-container">
                     {searchResults.map((result) => (
                         <div key={result._id} className="card" onClick={() => redirectToDetailPage(result)}>
-                            <img className="card-image" src={result.imageUrl} alt={result.name || result.title} />
                             <div className="card-info">
                                 {result.type === 'artist' && (
-                                    <span className="result-artist">Artiste: {result.name}</span>
+                                    <h3 className="result-artist">Artiste: {result.name}</h3>
                                 )}
                                 {result.type === 'album' && (
-                                    <span className="result-album">Album: {result.title}</span>
+                                    <h3 className="result-album">Album: {result.title}</h3>
                                 )}
                                 {result.type === 'music' && (
-                                    <span className="result-music">Chanson: {result.title}</span>
+                                    <h3 className="result-music">Chanson: {result.title}</h3>
                                 )}
                                 {result.type === 'playlist' && (
-                                    <span className="result-playlist">Playlist: {result.name}</span>
+                                    <h3 className="result-playlist">Playlist: {result.name}</h3>
                                 )}
                             </div>
+                            <img className="card-image" src={result.imageUrl} alt={result.name || result.title} />
                         </div>
                     ))}
                 </div>

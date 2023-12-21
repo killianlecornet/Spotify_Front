@@ -3,7 +3,7 @@
     overflow: hidden;
     position: relative;
     transition: transform 4.5s ease-in-out;
-    gap: 30px;
+    gap: 64px;
 }
 
 .carousel.transition {

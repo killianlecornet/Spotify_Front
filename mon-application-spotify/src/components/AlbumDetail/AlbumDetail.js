@@ -85,7 +85,7 @@ function AlbumDetail() {
                                     e.stopPropagation();
                                     toggleFavorite(music);
                                 }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                                    {favorites.includes(music._id) ? '❤️' : '🤍'}
+                                    {favorites.includes(music._id) ? '💚' : '🤍'}
                                 </span>
                             </div>
                         ))}
