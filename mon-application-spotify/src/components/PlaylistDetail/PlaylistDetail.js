@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MusicControlBar from '../../components/MusicControlBar/MusicControlBar';
-import  './PlaylistDetail.css';
+import './PlaylistDetail.css';
 import { Link } from 'react-router-dom';
 
 function PlaylistDetail() {
@@ -66,10 +66,6 @@ function PlaylistDetail() {
                     <img src={playlist.imageUrl} alt={playlist.imageUrl} height='200px' />
                     <div>
                         <h1 className='link'>{playlist.title}</h1>
-                        {/* <h2 className='link'>{playlist.artist?.name ?? "Nom de l'artiste non disponible"}</h2> */}
-                        <Link to={`/artist/${playlist.artist?._id}`} key={playlist.artist?._id} className='link'>
-                            <h2 className='link'>{playlist.artist?.name ?? 'Artiste inconnu'}</h2>
-                        </Link>
                         <p className='link'>{playlist.description ?? "Aucune description pour cet playlist"}</p>
                     </div>
                 </div>
@@ -82,6 +78,9 @@ function PlaylistDetail() {
                                 <img src={music.imageUrl} alt={music.title} />
                                 <h3>{music.title}</h3>
                                 <p>{music.genre}</p>
+                                <Link to={`/artist/${playlist.artist?._id}`} key={playlist.artist?._id} className='link'>
+                                    <p className='link'>{playlist.artist?.name ?? 'Artiste inconnu'}</p>
+                                </Link>
                                 <span onClick={(e) => {
                                     e.stopPropagation();
                                     toggleFavorite(music);

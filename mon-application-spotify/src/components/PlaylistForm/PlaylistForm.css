@@ -1,0 +1,106 @@
+/* .playlist-form-container {
+    background-color: #121212;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 43vw;
+    text-align: center;
+    margin-left: 11vw;
+}
+
+.playlist-form-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.playlist-form-container label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.playlist-form-container input,
+.playlist-form-container textarea,
+.playlist-form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #202020;
+    color: #ffffff;
+}
+
+.playlist-form-container button {
+    background-color: #1db954;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.playlist-form-container button:hover {
+    background-color: #1ed760;
+}
+
+.playlist-form-container .success-message {
+    color: #1db954;
+    margin-bottom: 10px;
+}
+
+.playlist-form-container .error-message {
+    color: #ff5050;
+    margin-bottom: 10px;
+} */
+
+
+
+
+
+
+
+
+.playlist-form-container {
+    background-color: #121212;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+.playlist-form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 16px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+}
+
+button {
+    padding: 10px;
+    background-color: #1db954;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #168f3a;
+}

@@ -8,8 +8,7 @@
     height: 6rem;
     border-radius: 7px;
     display: flex;
-    gap: 200px;
-    margin-top: 10px;
+    margin: 10px 10px 0px 0px;
     align-items: center;
     justify-content: space-between;
     padding-right: 2rem;

@@ -5,7 +5,7 @@ import AlbumDetail from '../../components/AlbumDetail/AlbumDetail';
 function DetailAlbum() {
 
     return (
-        <div className='App'>
+        <div className='appAlbum'>
             <LeftNavbar />
             <AlbumDetail/>
         </div>

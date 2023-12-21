@@ -60,44 +60,42 @@ function AlbumDetail() {
     const currentMusic = musics[currentMusicIndex];
 
     return (
-        <div className='App'>
-            <div className='mainInfos'>
-                <div className='albumDetail'>
-                    <img src={album.imageUrl} alt={album.imageUrl} height='200px' className='link' />
-                    <div className='textAlbum'>
-                        <h1 className='link'>{album.title}</h1>
-                        <Link to={`/artist/${album.artist?._id}`} key={album.artist?._id} className='link'>
-                            <h2 className='link'>{album.artist?.name ?? 'Artiste inconnu'}</h2>
-                        </Link>
-                        <p className='link'>{album.description ?? "Aucune description pour cet album"}</p>
-                    </div>
+        <div className='mainInfosAlbum'>
+            <div className='albumDetail'>
+                <img src={album.imageUrl} alt={album.imageUrl} height='200px' className='link' />
+                <div className='textAlbum'>
+                    <h1 className='link'>{album.title}</h1>
+                    <Link to={`/artist/${album.artist?._id}`} key={album.artist?._id} className='link'>
+                        <h2 className='link'>{album.artist?.name ?? 'Artiste inconnu'}</h2>
+                    </Link>
+                    <p className='link'>{album.description ?? "Aucune description pour cet album"}</p>
                 </div>
+            </div>
 
+            <div>
+                <h2>Musiques de l'album :</h2>
                 <div>
-                    <h2>Musiques de l'album :</h2>
-                    <div>
-                        {musics.map((music, index) => (
-                            <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='musiqueList'>
-                                <img src={music.imageUrl} alt={music.title} />
-                                <h3>{music.title}</h3>
-                                <p>{music.genre}</p>
-                                <span onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleFavorite(music);
-                                }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                                    {favorites.includes(music._id) ? '💚' : '🤍'}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                    <MusicControlBar
-                        music={musics}
-                        setCurrentMusicIndex={setCurrentMusicIndex}
-                        currentMusic={currentMusic}
-                        playNext={playNextMusic}
-                        playPrevious={playPreviousMusic}
-                    />
+                    {musics.map((music, index) => (
+                        <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='musiqueList'>
+                            <img src={music.imageUrl} alt={music.title} />
+                            <h3>{music.title}</h3>
+                            <p>{music.genre}</p>
+                            <span onClick={(e) => {
+                                e.stopPropagation();
+                                toggleFavorite(music);
+                            }} style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                                {favorites.includes(music._id) ? '💚' : '🤍'}
+                            </span>
+                        </div>
+                    ))}
                 </div>
+                <MusicControlBar
+                    music={musics}
+                    setCurrentMusicIndex={setCurrentMusicIndex}
+                    currentMusic={currentMusic}
+                    playNext={playNextMusic}
+                    playPrevious={playPreviousMusic}
+                />
             </div>
         </div>
     );

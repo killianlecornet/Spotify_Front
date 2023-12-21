@@ -1,0 +1,12 @@
+.appArtist{
+    display: flex;
+}
+
+.mainInfosArtist {
+    height: 100%;
+    width: 68vw;
+    color: white;
+    background-color: #121212;
+    padding: 23px 0px 23px 23px;
+    border-radius: 5px;
+}

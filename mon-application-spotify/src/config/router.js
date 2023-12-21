@@ -5,6 +5,7 @@ import DetailAlbum from "../pages/DetailAlbum/DetailAlbum";
 import DetailArtist from "../pages/DetailArtist/DetailArtist";
 import DetailFavorite from "../pages/DetailFavorite/DetailFavorite";
 import SearchPage from "../pages/SearchPage/SearchPage";
+import CreatePlaylist from "../pages/CreatePlaylist/CreatePlaylist";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     {
         path: "/search", 
         element: <SearchPage />
+    },
+    {
+        path: "/createPlaylist", 
+        element: <CreatePlaylist />
     },
 ]);
 

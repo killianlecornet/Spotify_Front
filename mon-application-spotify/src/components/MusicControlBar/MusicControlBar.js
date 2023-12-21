@@ -124,7 +124,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
             console.error("No music available for random play.");
         }
     };
-    console.log(musics);
 
     return (
         <div className='controlBar'>
