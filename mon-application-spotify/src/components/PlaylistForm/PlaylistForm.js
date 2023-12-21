@@ -78,6 +78,7 @@ const PlaylistForm = () => {
                     value={playlistData.title}
                     onChange={handleChange}
                     required
+                    classname='inputForm'
                 />
 
                 <label htmlFor="imageUrl">URL de l'image :</label>
@@ -88,6 +89,7 @@ const PlaylistForm = () => {
                     value={playlistData.imageUrl}
                     onChange={handleChange}
                     required
+                    classname='inputForm'
                 />
 
                 <label htmlFor="description">Description :</label>
@@ -97,6 +99,7 @@ const PlaylistForm = () => {
                     value={playlistData.description}
                     onChange={handleChange}
                     required
+                    classname='inputForm'
                 />
 
                 <label htmlFor="music">Musiques :</label>
@@ -107,6 +110,7 @@ const PlaylistForm = () => {
                     onChange={handleMusicChange}
                     multiple
                     required
+                    classname='inputForm'
                 >
                     {musicList.map((music) => (
                         <option key={music._id} value={music._id}>

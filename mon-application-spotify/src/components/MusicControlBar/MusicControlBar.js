@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faForward, faPause, faPlay, faVolumeHigh, faVolumeOff, faRepeat, faRedo, faRandom } from '@fortawesome/free-solid-svg-icons';
-import shuffle from 'just-shuffle'; // Import de la fonction shuffle
 import './MusicControlBar.css';
 
 const ProgressBar = styled.input.attrs({
@@ -29,7 +28,8 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
     const [volume, setVolume] = useState(100);
     const [isLooping, setIsLooping] = useState(false);
     const audioRef = useRef(null);
-    const [isRandom, setIsRandom] = useState(false);
+    // const [isRandom, setIsRandom] = useState(false);
+
 
     useEffect(() => {
         setProgress(0);
@@ -114,16 +114,16 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
         }
     };
 
-    const playRandomMusic = () => {
-        if (musics && musics.length > 0) {
-            const shuffledMusics = shuffle(musics);
-            setCurrentMusicIndex(0);
-            setIsRandom(true);
-            console.log("Random music played. isRandom:", true);
-        } else {
-            console.error("No music available for random play.");
-        }
-    };
+    // const playRandomMusic = () => {
+    //     if (musics && musics.length > 0) {
+    //         const randomIndex = Math.floor(Math.random() * musics.length);
+    //         console.log("Random music played. isRandom:", true);
+    //     } else {
+    //         console.error("No music available for random play.");
+    //     }
+    // };
+    
+
 
     return (
         <div className='controlBar'>
@@ -165,7 +165,7 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
             </div>
 
             <div className='volume'>
-                <FontAwesomeIcon icon={faRandom} onClick={playRandomMusic} className={`random ${isRandom ? 'active' : ''}`}/>
+                {/* <FontAwesomeIcon icon={faRandom} onClick={playRandomMusic} className={`random ${isRandom ? 'active' : ''}`}/> */}
                 <FontAwesomeIcon icon={isLooping ? faRedo : faRepeat} onClick={toggleLoop} />
                 <FontAwesomeIcon icon={volume === 0 ? faVolumeOff : faVolumeHigh} onClick={toggleVolumeMute} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />

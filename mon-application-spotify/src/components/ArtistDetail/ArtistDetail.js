@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MusicControlBar from '../../components/MusicControlBar/MusicControlBar';
 import './ArtistDetail.css';
+import { Link } from 'react-router-dom';
 
 function ArtistDetail() {
     const { id } = useParams();
@@ -97,11 +98,11 @@ function ArtistDetail() {
                 <div>
                     {albums && albums.length > 0 ? (
                         albums.map((albums) => (
-                            <div key={albums._id} className='playlistList'>
+                            <Link to={`/album/${albums._id}`} key={albums._id}  className='playlistList'>
                                 <img src={albums.imageUrl} alt={albums.title} />
                                 <h3>{albums.title}</h3>
                                 <p>{albums.description}</p>
-                            </div>
+                            </Link>
                         ))
                     ) : (
                         <p>Aucun album disponible.</p>
