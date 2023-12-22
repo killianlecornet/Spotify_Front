@@ -78,8 +78,8 @@ function PlaylistDetail() {
                                 <img src={music.imageUrl} alt={music.title} />
                                 <h3>{music.title}</h3>
                                 <p>{music.genre}</p>
-                                <Link to={`/artist/${playlist.artist?._id}`} key={playlist.artist?._id} className='link'>
-                                    <p className='link'>{playlist.artist?.name ?? 'Artiste inconnu'}</p>
+                                <Link to={`/artist/${music.artist}`} key={music.artist} className='link'>
+                                    <p className='link'>Artiste</p>
                                 </Link>
                                 <span onClick={(e) => {
                                     e.stopPropagation();

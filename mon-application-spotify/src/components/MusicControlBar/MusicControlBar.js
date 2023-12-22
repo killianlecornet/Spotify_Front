@@ -28,7 +28,7 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
     const [volume, setVolume] = useState(100);
     const [isLooping, setIsLooping] = useState(false);
     const audioRef = useRef(null);
-    // const [isRandom, setIsRandom] = useState(false);
+    const [isRandom, setIsRandom] = useState(false);
 
 
     useEffect(() => {
@@ -114,14 +114,14 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
         }
     };
 
-    // const playRandomMusic = () => {
-    //     if (musics && musics.length > 0) {
-    //         const randomIndex = Math.floor(Math.random() * musics.length);
-    //         console.log("Random music played. isRandom:", true);
-    //     } else {
-    //         console.error("No music available for random play.");
-    //     }
-    // };
+    const playRandomMusic = () => {
+        if (musics && musics.length > 0) {
+            const randomIndex = Math.floor(Math.random() * musics.length);
+            console.log("Random music played. isRandom:", true);
+        } else {
+            console.error("No music available for random play.");
+        }
+    };
     
 
 
@@ -165,7 +165,7 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
             </div>
 
             <div className='volume'>
-                {/* <FontAwesomeIcon icon={faRandom} onClick={playRandomMusic} className={`random ${isRandom ? 'active' : ''}`}/> */}
+                <FontAwesomeIcon icon={faRandom} onClick={playRandomMusic} className={`random ${isRandom ? 'active' : ''}`}/>
                 <FontAwesomeIcon icon={isLooping ? faRedo : faRepeat} onClick={toggleLoop} />
                 <FontAwesomeIcon icon={volume === 0 ? faVolumeOff : faVolumeHigh} onClick={toggleVolumeMute} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './DetailFavorite.css';
 import LeftNavbar from '../../components/LeftNavbar/LeftNavbar';
 import MusicControlBar from '../../components/MusicControlBar/MusicControlBar';
+import { Link } from 'react-router-dom';
 
 function DetailFavorite() {
     const [allMusics, setAllMusics] = useState([]);
@@ -65,6 +66,9 @@ function DetailFavorite() {
                         <div key={music._id} onClick={() => setCurrentMusicIndex(index)} className='favoriteList'>
                             <img src={music.imageUrl} alt={music.title} />
                             <h3>{music.title}</h3>
+                            <Link to={`/artist/${music.artist}`} key={music.artist} className='link'>
+                                <p className='link'>Artiste</p>
+                            </Link>
                             <p>{music.genre}</p>
                             <span onClick={(e) => {
                                 e.stopPropagation();

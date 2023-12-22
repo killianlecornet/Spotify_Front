@@ -1,11 +1,11 @@
 .favoriteList{
-    width: 87rem;
+    width: 66vw;
     height: 6rem;
     border-radius: 7px;
     display: flex;
-    gap: 200px;
     margin-top: 10px;
     align-items: center;
+    justify-content: space-between;
 }
 
 .favoriteList img{
