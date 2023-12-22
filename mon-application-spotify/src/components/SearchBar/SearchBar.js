@@ -65,7 +65,7 @@ function SearchBar() {
                                     <h3 className="result-music">Chanson: {result.title}</h3>
                                 )}
                                 {result.type === 'playlist' && (
-                                    <h3 className="result-playlist">Playlist: {result.name}</h3>
+                                    <h3 className="result-playlist">Playlist: {result.title}</h3>
                                 )}
                             </div>
                             <img className="card-image" src={result.imageUrl} alt={result.name || result.title} />

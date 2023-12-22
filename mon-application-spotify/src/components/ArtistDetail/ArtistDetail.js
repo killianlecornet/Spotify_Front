@@ -98,7 +98,7 @@ function ArtistDetail() {
                 <div>
                     {albums && albums.length > 0 ? (
                         albums.map((albums) => (
-                            <Link to={`/album/${albums._id}`} key={albums._id}  className='playlistList'>
+                            <Link to={`/album/${albums._id}`} key={albums._id}  className='playlistList link'>
                                 <img src={albums.imageUrl} alt={albums.title} />
                                 <h3>{albums.title}</h3>
                                 <p>{albums.description}</p>
