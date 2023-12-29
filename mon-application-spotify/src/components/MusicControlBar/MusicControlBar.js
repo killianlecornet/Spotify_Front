@@ -32,7 +32,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
     const [shuffledMusicIndices, setShuffledMusicIndices] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(null);
 
-
     useEffect(() => {
         setProgress(0);
         setIsPlaying(true);
@@ -68,11 +67,14 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
 
     const playPreviousMusic = () => {
         if (isRandom) {
-            const currentIndex = shuffledMusicIndices.indexOf(currentIndex);
-            const previousIndex = (currentIndex - 1 + musics.length) % musics.length;
-            setCurrentMusicIndex(shuffledMusicIndices[previousIndex]);
+            // Lecture aléatoire
+            const prevRandomIndex = (currentIndex - 1 + musics.length) % musics.length;
+            setCurrentIndex(prevRandomIndex);
+            setCurrentMusicIndex(shuffledMusicIndices[prevRandomIndex]);
         } else {
-            playPrevious();
+            // Lecture normale
+            setCurrentIndex((prevIndex) => (prevIndex - 1 + musics.length) % musics.length);
+            setCurrentMusicIndex((prevIndex) => (prevIndex - 1 + musics.length) % musics.length);
         }
     };
 
@@ -153,17 +155,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
             }
         }
     };
-
-    // const playRandomMusic = ({ musics }) => {
-    //     if (musics && musics.length > 0) {
-    //         const randomIndex = Math.floor(Math.random() * musics.length);
-    //         console.log("Random music played. isRandom:", true);
-    //     } else {
-    //         console.error("No music available for random play.");
-    //     }
-    // };
-    
-
 
     return (
         <div className='controlBar'>
