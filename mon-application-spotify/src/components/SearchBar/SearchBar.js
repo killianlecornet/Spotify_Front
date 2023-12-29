@@ -6,6 +6,7 @@ function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const navigate = useNavigate();
+    const [debounceTimer, setDebounceTimer] = useState(null);
 
     const handleSearch = async () => {
         try {
@@ -36,9 +37,20 @@ function SearchBar() {
         }
     };
 
+    const handleSearchDebounced = () => {
+        clearTimeout(debounceTimer); // Annulez le délai d'attente précédent
+
+        // Démarrez un nouveau délai d'attente
+        const timer = setTimeout(() => {
+            handleSearch();
+        }, 400); // Délai d'attente de 500 ms
+
+        setDebounceTimer(timer); // Stockez la référence du nouveau délai d'attente
+    };
+
     useEffect(() => {
         // Déclenchez la recherche chaque fois que le terme de recherche change
-        handleSearch();
+        handleSearchDebounced();
     }, [searchTerm]);
 
     return (

@@ -90,7 +90,7 @@ function AlbumDetail() {
                     ))}
                 </div>
                 <MusicControlBar
-                    music={musics}
+                    musics={musics}
                     setCurrentMusicIndex={setCurrentMusicIndex}
                     currentMusic={currentMusic}
                     playNext={playNextMusic}

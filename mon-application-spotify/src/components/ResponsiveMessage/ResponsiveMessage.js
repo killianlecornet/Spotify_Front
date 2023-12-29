@@ -3,7 +3,7 @@ import './ResponsiveMessage.css';
 
 function ResponsiveMessage() {
   // Utilisez les médias queries pour détecter la taille de l'écran
-  const isSmallScreen = window.matchMedia('(max-width: 800px)').matches;
+  const isSmallScreen = window.matchMedia('(min-width: 800px)').matches;
 console.log(isSmallScreen);
   // Si l'écran est trop petit, affichez le message
   if (isSmallScreen) {

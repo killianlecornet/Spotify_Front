@@ -6,6 +6,7 @@ import DetailArtist from "../pages/DetailArtist/DetailArtist";
 import DetailFavorite from "../pages/DetailFavorite/DetailFavorite";
 import SearchPage from "../pages/SearchPage/SearchPage";
 import CreatePlaylist from "../pages/CreatePlaylist/CreatePlaylist";
+import LatestMusics from "../pages/LatestMusics/LatestMusics";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     {
         path: "/createPlaylist", 
         element: <CreatePlaylist />
+    },
+    {
+        path: "/latestMusics", 
+        element: <LatestMusics />
     },
 ]);
 
