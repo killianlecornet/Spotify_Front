@@ -29,12 +29,52 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
     const [isLooping, setIsLooping] = useState(false);
     const audioRef = useRef(null);
     const [isRandom, setIsRandom] = useState(false);
+    const [shuffledMusicIndices, setShuffledMusicIndices] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(null);
 
 
     useEffect(() => {
         setProgress(0);
-        setIsPlaying(true); // Commencer la musique par défaut en lecture
-    }, [currentMusic]);
+        setIsPlaying(true);
+        // Générer un ordre aléatoire initial lorsque la liste de musiques change
+        const generateShuffledIndices = () => {
+            const indices = Array.from({ length: musics.length }, (_, index) => index);
+            return indices.sort(() => Math.random() - 0.5);
+        };
+        setShuffledMusicIndices(generateShuffledIndices());
+    }, [currentMusic, musics]);
+
+    const toggleRandom = () => {
+        setIsRandom(!isRandom);
+        if (!isRandom) {
+            // Si la lecture devient aléatoire, régénérer l'ordre aléatoire initial
+            const newShuffledIndices = shuffledMusicIndices.slice().sort(() => Math.random() - 0.5);
+            setShuffledMusicIndices(newShuffledIndices);
+        }
+    };
+
+    const playNextMusic = () => {
+        if (isRandom) {
+            // Lecture aléatoire
+            const nextRandomIndex = (currentIndex + 1) % musics.length;
+            setCurrentIndex(nextRandomIndex);
+            setCurrentMusicIndex(shuffledMusicIndices[nextRandomIndex]);
+        } else {
+            // Lecture normale
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % musics.length);
+            setCurrentMusicIndex((prevIndex) => (prevIndex + 1) % musics.length);
+        }
+    };
+
+    const playPreviousMusic = () => {
+        if (isRandom) {
+            const currentIndex = shuffledMusicIndices.indexOf(currentIndex);
+            const previousIndex = (currentIndex - 1 + musics.length) % musics.length;
+            setCurrentMusicIndex(shuffledMusicIndices[previousIndex]);
+        } else {
+            playPrevious();
+        }
+    };
 
     const togglePlayPause = () => {
         const audio = audioRef.current;
@@ -114,14 +154,14 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
         }
     };
 
-    const playRandomMusic = ({ musics }) => {
-        if (musics && musics.length > 0) {
-            const randomIndex = Math.floor(Math.random() * musics.length);
-            console.log("Random music played. isRandom:", true);
-        } else {
-            console.error("No music available for random play.");
-        }
-    };
+    // const playRandomMusic = ({ musics }) => {
+    //     if (musics && musics.length > 0) {
+    //         const randomIndex = Math.floor(Math.random() * musics.length);
+    //         console.log("Random music played. isRandom:", true);
+    //     } else {
+    //         console.error("No music available for random play.");
+    //     }
+    // };
     
 
 
@@ -138,7 +178,7 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
 
             <div className='midWrapper'>
                 <div>
-                    <FontAwesomeIcon icon={faBackward} onClick={playPrevious} />
+                    <FontAwesomeIcon icon={faBackward} onClick={playPreviousMusic} />
                 </div>
                 <div>
                     <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} onClick={togglePlayPause} />
@@ -159,13 +199,13 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
                     onEnded={handleSongEnd} // Appelé lorsque la piste se termine
                 />
                 <div>
-                    <FontAwesomeIcon icon={faForward} onClick={playNext} />
+                    <FontAwesomeIcon icon={faForward} onClick={playNextMusic} />
                 </div>
                 <ProgressBar value={progress} onChange={handleProgressChange} />
             </div>
 
             <div className='volume'>
-                <FontAwesomeIcon icon={faRandom} onClick={() => {playRandomMusic({ musics})}} className={`random ${isRandom ? 'active' : ''}`}/>
+                <FontAwesomeIcon icon={faRandom} onClick={toggleRandom} className={`random ${isRandom ? 'active' : ''}`} />
                 <FontAwesomeIcon icon={isLooping ? faRedo : faRepeat} onClick={toggleLoop} />
                 <FontAwesomeIcon icon={volume === 0 ? faVolumeOff : faVolumeHigh} onClick={toggleVolumeMute} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />
