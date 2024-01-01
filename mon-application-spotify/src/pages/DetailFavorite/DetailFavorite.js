@@ -82,9 +82,11 @@ function DetailFavorite() {
                     <p>Aucune musique n'a été trouvée.</p>
                 )}
                 <MusicControlBar
-                    currentMusic={currentMusic}
-                    playNext={playNextMusic}
-                    playPrevious={playPreviousMusic}
+                    musics={allMusics}
+                    setCurrentMusicIndex={setCurrentMusicIndex}
+                    currentMusic={currentMusic} 
+                    playNext={playNextMusic} 
+                    playPrevious={playPreviousMusic} 
                 />
             </div>
         </div>
