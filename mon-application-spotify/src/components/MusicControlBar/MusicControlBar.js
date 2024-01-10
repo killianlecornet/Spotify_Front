@@ -31,7 +31,8 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
     const audioRef = useRef(null);
     const [isRandom, setIsRandom] = useState(false);
 
-    const socket = io(`${process.env.REACT_APP_URI_API}`); 
+    // const socket = io(`${process.env.REACT_APP_URI_API}`);
+    const socket = io('https://spotify-front-back.vercel.app'); // Remplacez par l'URL de votre serveur
 
     useEffect(() => {
         setProgress(0);
