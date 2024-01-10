@@ -15,7 +15,6 @@ function PlaylistDetail() {
         fetch(`${process.env.REACT_APP_URI_API}/api/playlist/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Données récupérées :', data);
                 setPlaylist(data);
                 setMusics(data.music); // Mettre à jour l'état des musiques avec les données récupérées
                 setCurrentMusicIndex(0); // Initialiser l'index de la musique en cours à 0

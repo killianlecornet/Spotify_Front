@@ -16,7 +16,6 @@ function ArtistDetail() {
         fetch(`${process.env.REACT_APP_URI_API}/api/artist/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Artiste récupéré :', data);
                 setArtist(data);
                 setMusics(data.music || []);
                 setAlbums(data.albums || []); // Utilisez un tableau vide si data.album est undefined

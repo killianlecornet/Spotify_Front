@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faForward, faPause, faPlay, faVolumeHigh, faVolumeOff, faRepeat, faRedo, faRandom } from '@fortawesome/free-solid-svg-icons';
 import './MusicControlBar.css';
+import io from 'socket.io-client';
 
 const ProgressBar = styled.input.attrs({
     type: 'range',
@@ -23,69 +24,81 @@ const VolumeControl = styled.input.attrs({
 `;
 
 function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext, playPrevious }) {
-    const [isPlaying, setIsPlaying] = useState(true);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [volume, setVolume] = useState(100);
     const [isLooping, setIsLooping] = useState(false);
     const audioRef = useRef(null);
     const [isRandom, setIsRandom] = useState(false);
-    const [shuffledMusicIndices, setShuffledMusicIndices] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(null);
+
+    const socket = io(`${process.env.REACT_APP_URI_API}`); 
 
     useEffect(() => {
         setProgress(0);
-        setIsPlaying(true);
-        // Générer un ordre aléatoire initial lorsque la liste de musiques change
-        const generateShuffledIndices = () => {
-            const indices = Array.from({ length: musics.length }, (_, index) => index);
-            return indices.sort(() => Math.random() - 0.5);
+
+        socket.on('play', () => {
+            if (audioRef.current) {
+                audioRef.current.play();
+                setIsPlaying(true);
+            }
+        });
+
+        socket.on('pause', () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            }
+        });
+
+        socket.on('musicChange', (track) => {
+            if (audioRef.current) {
+                audioRef.current.src = track.url;
+                audioRef.current.load();
+                setIsPlaying(false);
+            }
+        });
+
+        socket.on('playbackUpdate', (state) => {
+            if (audioRef.current && Math.abs(audioRef.current.currentTime - state.currentTime) > 0.5) {
+                audioRef.current.currentTime = state.currentTime;
+            }
+        });
+
+        const updatePlayback = () => {
+            if (audioRef.current) {
+                const currentTime = audioRef.current.currentTime;
+                socket.emit('updatePlayback', { currentTime });
+            }
         };
-        setShuffledMusicIndices(generateShuffledIndices());
-    }, [currentMusic, musics]);
+    
+        const playbackInterval = setInterval(updatePlayback, 500); // Mise à jour toutes les 500 ms
+    
+        return () => {
+            clearInterval(playbackInterval);
+            // ... Nettoyage des autres gestionnaires d'événements
+        };
 
-    const toggleRandom = () => {
-        setIsRandom(!isRandom);
-        if (!isRandom) {
-            // Si la lecture devient aléatoire, régénérer l'ordre aléatoire initial
-            const newShuffledIndices = shuffledMusicIndices.slice().sort(() => Math.random() - 0.5);
-            setShuffledMusicIndices(newShuffledIndices);
-        }
-    };
-
-    const playNextMusic = () => {
-        if (isRandom) {
-            // Lecture aléatoire
-            const nextRandomIndex = (currentIndex + 1) % musics.length;
-            setCurrentIndex(nextRandomIndex);
-            setCurrentMusicIndex(shuffledMusicIndices[nextRandomIndex]);
-        } else {
-            // Lecture normale
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % musics.length);
-            setCurrentMusicIndex((prevIndex) => (prevIndex + 1) % musics.length);
-        }
-    };
-
-    const playPreviousMusic = () => {
-        if (isRandom) {
-            // Lecture aléatoire
-            const prevRandomIndex = (currentIndex - 1 + musics.length) % musics.length;
-            setCurrentIndex(prevRandomIndex);
-            setCurrentMusicIndex(shuffledMusicIndices[prevRandomIndex]);
-        } else {
-            // Lecture normale
-            setCurrentIndex((prevIndex) => (prevIndex - 1 + musics.length) % musics.length);
-            setCurrentMusicIndex((prevIndex) => (prevIndex - 1 + musics.length) % musics.length);
-        }
-    };
+        return () => {
+            clearInterval(playbackInterval);
+            socket.off('play');
+            socket.off('pause');
+            socket.off('musicChange');
+            socket.off('playbackUpdate');
+        };
+    }, []);
 
     const togglePlayPause = () => {
         const audio = audioRef.current;
-        if (isPlaying) {
-            audio.pause();
-        } else {
-            audio.play();
+        if (audio) {
+            if (isPlaying) {
+                audio.pause();
+                socket.emit('pause');
+            } else {
+                audio.play();
+                socket.emit('play');
+            }
+            setIsPlaying(!isPlaying);
         }
-        setIsPlaying(!isPlaying);
     };
 
     const toggleLoop = () => {
@@ -98,12 +111,10 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
             const newVolume = audio.volume === 0 ? 100 : 0;
             setVolume(newVolume);
             audio.volume = newVolume / 100;
-            // Si le volume est réglé à 0, mettez la lecture en pause
             if (newVolume === 0) {
                 audio.pause();
                 setIsPlaying(false);
             } else {
-                // Sinon, reprenez la lecture si elle était en pause
                 if (!isPlaying) {
                     audio.play();
                     setIsPlaying(true);
@@ -114,7 +125,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
 
     const handleSongEnd = () => {
         if (isLooping) {
-            // Répéter la musique en remettant la progression à zéro
             setProgress(0);
             const audio = audioRef.current;
             if (audio) {
@@ -122,7 +132,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
                 audio.play();
             }
         } else {
-            // Jouer la musique suivante en fin de piste
             playNext();
         }
     };
@@ -142,12 +151,10 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
         const audio = audioRef.current;
         if (audio) {
             audio.volume = newVolume / 100;
-            // Si le volume est réglé à 0, mettez la lecture en pause
             if (parseInt(newVolume, 10) === 0) {
                 audio.pause();
                 setIsPlaying(false);
             } else {
-                // Sinon, reprenez la lecture si elle était en pause
                 if (!isPlaying) {
                     audio.play();
                     setIsPlaying(true);
@@ -156,12 +163,21 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
         }
     };
 
+    const playRandomMusic = () => {
+        if (musics && musics.length > 0) {
+            const randomIndex = Math.floor(Math.random() * musics.length);
+            setCurrentMusicIndex(randomIndex); // Met à jour l'index de la musique actuelle
+        } else {
+            console.error("No music available for random play.");
+        }
+    };
+
     return (
         <div className='controlBar'>
             <div className='musicInfo'>
                 {currentMusic &&
                     <div className='infosMusic'>
-                        <img src={currentMusic.imageUrl} height={'55px'} alt='imageUrl' />
+                        <img src={currentMusic.imageUrl} height={'55px'} alt={currentMusic.title} />
                         <p>{currentMusic.title}</p>
                     </div>
                 }
@@ -169,7 +185,7 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
 
             <div className='midWrapper'>
                 <div>
-                    <FontAwesomeIcon icon={faBackward} onClick={playPreviousMusic} />
+                    <FontAwesomeIcon icon={faBackward} onClick={playPrevious} />
                 </div>
                 <div>
                     <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} onClick={togglePlayPause} />
@@ -177,7 +193,6 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
                 <audio
                     ref={audioRef}
                     src={currentMusic?.url}
-                    autoPlay
                     onPlay={() => setIsPlaying(true)}
                     onPause={() => setIsPlaying(false)}
                     onTimeUpdate={() => {
@@ -187,16 +202,16 @@ function MusicControlBar({ musics, setCurrentMusicIndex, currentMusic, playNext,
                             setProgress(newProgress);
                         }
                     }}
-                    onEnded={handleSongEnd} // Appelé lorsque la piste se termine
+                    onEnded={handleSongEnd}
                 />
                 <div>
-                    <FontAwesomeIcon icon={faForward} onClick={playNextMusic} />
+                    <FontAwesomeIcon icon={faForward} onClick={playNext} />
                 </div>
                 <ProgressBar value={progress} onChange={handleProgressChange} />
             </div>
 
             <div className='volume'>
-                <FontAwesomeIcon icon={faRandom} onClick={toggleRandom} className={`random ${isRandom ? 'active' : ''}`} />
+                <FontAwesomeIcon icon={faRandom} onClick={playRandomMusic} className={`random ${isRandom ? 'active' : ''}`}/>
                 <FontAwesomeIcon icon={isLooping ? faRedo : faRepeat} onClick={toggleLoop} />
                 <FontAwesomeIcon icon={volume === 0 ? faVolumeOff : faVolumeHigh} onClick={toggleVolumeMute} />
                 <VolumeControl value={volume} onChange={handleVolumeChange} />

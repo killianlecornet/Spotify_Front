@@ -15,7 +15,6 @@ function AlbumDetail() {
         fetch(`${process.env.REACT_APP_URI_API}/api/album/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log('detail album :', data);
                 setAlbum(data);
                 setMusics(data.music);
                 setCurrentMusicIndex(0);

@@ -10,7 +10,6 @@ function PlaylistList() {
         fetch(`${process.env.REACT_APP_URI_API}/api/playlist`)
             .then(response => response.json())
             .then(data => {
-                console.log('Playlists récupérées :', data);
                 setPlaylists(data);
             })
             .catch(error => console.error('Erreur :', error));

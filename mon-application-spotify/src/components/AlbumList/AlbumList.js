@@ -19,7 +19,6 @@ function AlbumList() {
                 return response.json();
             })
             .then(data => {
-                console.log('AlbumList récupérées :', data);
                 setAlbums(data);
             })
             .catch(error => {

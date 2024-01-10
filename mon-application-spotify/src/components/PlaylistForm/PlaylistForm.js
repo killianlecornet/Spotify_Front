@@ -61,7 +61,6 @@ const PlaylistForm = () => {
             }
 
             const createdPlaylist = await response.json();
-            console.log('Playlist créée avec succès:', createdPlaylist);
         } catch (error) {
             console.error('Erreur lors de la création de la playlist:', error.message);
         }

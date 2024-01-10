@@ -14,7 +14,6 @@ function ArtistList() {
         fetch(`${process.env.REACT_APP_URI_API}/api/artist`)
             .then(response => response.json())
             .then(data => {
-                console.log('Données récupérées :', data);
                 setArtists(data);
             })
             .catch(error => console.error('Erreur :', error));
